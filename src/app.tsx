@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ApolloProvider, gql, useQuery } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import { client } from "./apolloClient";
 import SchoolList from "./components/SchoolList";
 
@@ -17,7 +17,7 @@ const App = () => {
 };
 
 function render() {
-  ReactDOM.render(<App />, document.body);
+  ReactDOM.render(<App />, document.getElementById("root"));
 }
 
 render();

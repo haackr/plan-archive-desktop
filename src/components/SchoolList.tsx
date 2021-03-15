@@ -14,6 +14,7 @@ const SCHOOLS_QUERY = gql`
 const SchoolList = () => {
   const { loading, error, data } = useQuery(SCHOOLS_QUERY);
   if (loading) return <div>Loading...</div>;
+  if (error) return <div>ERROR: {error.message}</div>;
   return (
     <div>
       <ul>
