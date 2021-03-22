@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
-import { Table } from "baseui/table-semantic";
+import { TableBuilder, TableBuilderColumn } from "baseui/table-semantic";
+import { format } from "date-fns";
 
 type SetListProps = {
   schoolId: number;
@@ -38,23 +39,23 @@ const SetList: React.FC<SetListProps> = ({ schoolId }) => {
   const COLUMNS = ["ID", "KEY", "TITLE", "YEAR", "MONTH", "DAY"];
   if (error) return <p>ERROR: {error.message}</p>;
   return (
-    <Table
-      isLoading={loading}
-      columns={COLUMNS}
-      emptyMessage="No sets found!"
-      data={
-        loading
-          ? []
-          : data.school.Sets.map((set: Set) => [
-              set.ID,
-              set.Key,
-              set.Title,
-              set.Year,
-              set.Month,
-              set.Day,
-            ])
-      }
-    />
+    <TableBuilder data={loading ? [] : data.school.Sets} isLoading={loading}>
+      <TableBuilderColumn header="ID">{(row) => row.ID}</TableBuilderColumn>
+      <TableBuilderColumn header="Key">{(row) => row.Key}</TableBuilderColumn>
+      <TableBuilderColumn header="Title">
+        {(row) => row.Title}
+      </TableBuilderColumn>
+      <TableBuilderColumn header="Date">
+        {(row) => {
+          const setDate = new Date(
+            parseInt(row.Year.trim()),
+            parseInt(row.Month.trim()),
+            parseInt(row.Day.trim())
+          );
+          return format(setDate, "yyyy/MM/dd");
+        }}
+      </TableBuilderColumn>
+    </TableBuilder>
   );
 };
 

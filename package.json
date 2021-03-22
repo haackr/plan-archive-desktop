@@ -91,6 +91,7 @@
     "@types/styletron-react": "^5.0.2",
     "@types/styletron-standard": "^2.0.1",
     "baseui": "^9.111.2",
+    "date-fns": "^2.19.0",
     "electron-squirrel-startup": "^1.0.0",
     "graphql": "^15.5.0",
     "react": "^17.0.1",
