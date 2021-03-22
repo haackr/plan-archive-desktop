@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, gql } from "@apollo/client";
+import { Select, SIZE, Value } from "baseui/select";
 
 const SCHOOLS_QUERY = gql`
   query SCHOOLS_QUERY {
@@ -11,20 +12,35 @@ const SCHOOLS_QUERY = gql`
   }
 `;
 
-const SchoolList = () => {
+type School = {
+  id: number;
+  SchoolName: string;
+  SchoolID: string;
+};
+
+const SchoolList: React.FC = () => {
+  const [schoolListValue, setSchoolListValue] = useState<Value>();
   const { loading, error, data } = useQuery(SCHOOLS_QUERY);
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>ERROR: {error.message}</div>;
   return (
-    <div>
-      <ul>
-        {data.schools.map((school: any) => (
-          <li key={school.id}>
-            {school.SchoolID} - {school.SchoolName}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Select
+      isLoading={loading}
+      options={
+        loading
+          ? []
+          : data.schools.map((school: School) => ({
+              label: `${school.SchoolID} - ${school.SchoolName}`,
+              id: school.id,
+            }))
+      }
+      value={schoolListValue}
+      onChange={({ value }) => setSchoolListValue(value)}
+      placeholder="Select Location"
+      searchable
+      size={SIZE.large}
+      autoFocus
+      disabled={loading}
+    />
   );
 };
 
