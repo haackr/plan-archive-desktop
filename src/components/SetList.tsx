@@ -24,7 +24,7 @@ const SET_LIST_QUERY = gql`
 `;
 
 const SetList: React.FC<SetListProps> = ({ schoolId }) => {
-  console.log(schoolId);
+  // console.log(schoolId);
   const { loading, error, data } = useQuery(SET_LIST_QUERY, {
     variables: { schoolId },
   });

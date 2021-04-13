@@ -25,7 +25,7 @@ const SchoolList: React.FC = () => {
   const [schoolListValue, setSchoolListValue] = useState<Value>([]);
   const { loading, error, data } = useQuery(SCHOOLS_QUERY);
   if (error) return <div>ERROR: {error.message}</div>;
-  console.log(schoolListValue);
+  // console.log(schoolListValue);
   return (
     <div>
       <Select
