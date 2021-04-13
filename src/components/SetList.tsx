@@ -2,18 +2,10 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { TableBuilder, TableBuilderColumn } from "baseui/table-semantic";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 type SetListProps = {
   schoolId: number;
-};
-
-type Set = {
-  ID: number;
-  Key: string;
-  Title: string;
-  Year: string;
-  Month: string;
-  Day: string;
 };
 
 const SET_LIST_QUERY = gql`
@@ -36,14 +28,19 @@ const SetList: React.FC<SetListProps> = ({ schoolId }) => {
   const { loading, error, data } = useQuery(SET_LIST_QUERY, {
     variables: { schoolId },
   });
-  const COLUMNS = ["ID", "KEY", "TITLE", "YEAR", "MONTH", "DAY"];
   if (error) return <p>ERROR: {error.message}</p>;
   return (
-    <TableBuilder data={loading ? [] : data.school.Sets} isLoading={loading}>
-      <TableBuilderColumn header="ID">{(row) => row.ID}</TableBuilderColumn>
-      <TableBuilderColumn header="Key">{(row) => row.Key}</TableBuilderColumn>
+    <TableBuilder
+      data={loading ? [] : data.school.Sets}
+      isLoading={loading}
+      emptyMessage="No sets found!"
+    >
       <TableBuilderColumn header="Title">
-        {(row) => row.Title}
+        {(row) => <Link to="/set/">{row.Title}</Link>}
+      </TableBuilderColumn>
+      <TableBuilderColumn header="Key">{(row) => row.Key}</TableBuilderColumn>
+      <TableBuilderColumn header="ID">
+        {(row) => row.ID.trim()}
       </TableBuilderColumn>
       <TableBuilderColumn header="Date">
         {(row) => {

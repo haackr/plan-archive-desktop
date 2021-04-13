@@ -7,6 +7,7 @@ import { LightTheme, BaseProvider } from "baseui";
 import { MemoryRouter, Switch, Route } from "react-router-dom";
 import { client } from "./apolloClient";
 import SchoolList from "./components/SchoolList";
+import SheetList from "./components/SheetList";
 
 const engine = new Styletron();
 
@@ -18,7 +19,10 @@ const App = () => {
           <ApolloProvider client={client}>
             <MemoryRouter>
               <Switch>
-                <Route path="/" component={SchoolList} />
+                <Route exact path="/" component={SchoolList} />
+                <Route path="/set">
+                  <SheetList />
+                </Route>
               </Switch>
             </MemoryRouter>
           </ApolloProvider>

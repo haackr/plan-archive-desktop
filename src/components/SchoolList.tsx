@@ -3,6 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import { Select, SIZE, Value } from "baseui/select";
 import { Button } from "baseui/button";
 import SetList from "./SetList";
+import { Link } from "react-router-dom";
 
 const SCHOOLS_QUERY = gql`
   query SCHOOLS_QUERY {
@@ -27,6 +28,7 @@ const SchoolList: React.FC = () => {
   console.log(schoolListValue);
   return (
     <div>
+      <Link to="/set">Test Link</Link>
       <Select
         isLoading={loading}
         options={
