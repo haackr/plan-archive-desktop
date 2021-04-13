@@ -28,7 +28,6 @@ const SchoolList: React.FC = () => {
   console.log(schoolListValue);
   return (
     <div>
-      <Link to="/set">Test Link</Link>
       <Select
         isLoading={loading}
         options={

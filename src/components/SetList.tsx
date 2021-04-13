@@ -36,7 +36,7 @@ const SetList: React.FC<SetListProps> = ({ schoolId }) => {
       emptyMessage="No sets found!"
     >
       <TableBuilderColumn header="Title">
-        {(row) => <Link to="/set/">{row.Title}</Link>}
+        {(row) => <Link to={`/set/${row.Key}`}>{row.Title}</Link>}
       </TableBuilderColumn>
       <TableBuilderColumn header="Key">{(row) => row.Key}</TableBuilderColumn>
       <TableBuilderColumn header="ID">

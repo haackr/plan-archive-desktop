@@ -20,7 +20,7 @@ const App = () => {
             <MemoryRouter>
               <Switch>
                 <Route exact path="/" component={SchoolList} />
-                <Route path="/set">
+                <Route path="/set/:id">
                   <SheetList />
                 </Route>
               </Switch>
