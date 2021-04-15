@@ -22,7 +22,7 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-  shell.openPath("C:\\Users\\e138953\\test.txt");
+  // shell.openPath("C:\\Users\\e138953\\test.txt");
 };
 
 // This method will be called when Electron has finished

@@ -20,6 +20,7 @@ const App = () => {
             <MemoryRouter>
               <Switch>
                 <Route exact path="/" component={SchoolList} />
+                <Route path="/school/:id" component={SchoolList} />
                 <Route path="/set/:id">
                   <SheetList />
                 </Route>

@@ -2,8 +2,7 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { TableBuilder, TableBuilderColumn } from "baseui/table-semantic";
 import { Tag, KIND, VARIANT } from "baseui/tag";
-import { StatefulTooltip } from "baseui/tooltip";
-import { format } from "date-fns";
+import { Button } from "baseui/button";
 import { useHistory, useParams } from "react-router-dom";
 
 const SHEET_LIST_QUERY = gql`
@@ -35,9 +34,10 @@ const SheetList: React.FC = () => {
     variables: { SetId: parseInt(id) },
   });
   if (error) return <div>{error.message}</div>;
+  console.log(history);
   return (
     <div>
-      <button onClick={() => history.goBack()}>Back</button>
+      <Button onClick={() => history.goBack()}>Back</Button>
       <TableBuilder
         isLoading={loading}
         data={loading ? [] : data.set.Sheets}
