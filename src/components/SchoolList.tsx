@@ -25,7 +25,7 @@ const SchoolList: React.FC = () => {
   console.log(params);
   const [schoolListValue, setSchoolListValue] = useState<Value>([]);
   const { loading, error, data } = useQuery(SCHOOLS_QUERY);
-  let history = useHistory();
+  const history = useHistory();
   if (error) return <div>ERROR: {error.message}</div>;
   // console.log(schoolListValue);
   return (
@@ -62,7 +62,9 @@ const SchoolList: React.FC = () => {
       {(schoolListValue.length !== 0 || params.id) && (
         <SetList
           schoolId={
-            schoolListValue[0] ? schoolListValue[0].id : parseInt(params.id)
+            schoolListValue[0]
+              ? (schoolListValue[0].id as number)
+              : parseInt(params.id)
           }
         />
       )}

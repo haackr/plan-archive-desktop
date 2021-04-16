@@ -28,7 +28,7 @@ const SHEET_LIST_QUERY = gql`
 `;
 
 const SheetList: React.FC = () => {
-  let history = useHistory();
+  const history = useHistory();
   const { id }: any = useParams();
   const { loading, error, data } = useQuery(SHEET_LIST_QUERY, {
     variables: { SetId: parseInt(id) },
