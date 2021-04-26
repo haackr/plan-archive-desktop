@@ -4,6 +4,7 @@ import { TableBuilder, TableBuilderColumn } from "baseui/table-semantic";
 import { Tag, KIND, VARIANT } from "baseui/tag";
 import { Button } from "baseui/button";
 import { useHistory, useParams } from "react-router-dom";
+import { ipcRenderer } from "electron";
 
 const SHEET_LIST_QUERY = gql`
   query SHEET_LIST_QUERY($SetId: Int!) {
@@ -74,6 +75,9 @@ const SheetList: React.FC = () => {
                     closeable={false}
                     variant={VARIANT.solid}
                     title={tag.path}
+                    onClick={() => {
+                      ipcRenderer.send("open_file", tag.path);
+                    }}
                   >
                     {tag.type}
                   </Tag>
