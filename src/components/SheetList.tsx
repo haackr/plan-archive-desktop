@@ -35,7 +35,7 @@ const SheetList: React.FC = () => {
     variables: { SetId: parseInt(id) },
   });
   if (error) return <div>{error.message}</div>;
-  console.log(history);
+  // console.log(history);
   return (
     <div>
       <Button onClick={() => history.goBack()}>Back</Button>
@@ -43,6 +43,15 @@ const SheetList: React.FC = () => {
         isLoading={loading}
         data={loading ? [] : data.set.Sheets}
         emptyMessage="No sheets found!"
+        overrides={{
+          TableBodyRow: {
+            props: {
+              onDoubleClick: (e) => {
+                // console.log("Row clicked");
+              },
+            },
+          },
+        }}
       >
         <TableBuilderColumn header="Title">
           {(row) => row.Title}

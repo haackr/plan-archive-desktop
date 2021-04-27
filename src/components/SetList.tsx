@@ -1,8 +1,9 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { TableBuilder, TableBuilderColumn } from "baseui/table-semantic";
+import { StyledLink } from "baseui/link";
 import { format } from "date-fns";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 type SetListProps = {
   schoolId: number;
@@ -28,19 +29,39 @@ const SetList: React.FC<SetListProps> = ({ schoolId }) => {
   const { loading, error, data } = useQuery(SET_LIST_QUERY, {
     variables: { schoolId },
   });
+  const history = useHistory();
   if (error) return <p>ERROR: {error.message}</p>;
   return (
     <TableBuilder
       data={loading ? [] : data.school.Sets}
       isLoading={loading}
       emptyMessage="No sets found!"
+      overrides={{
+        TableBodyRow: {
+          props: {
+            onDoubleClick: (e) => {
+              // todo: find out if there is a better way to get the key from the event. How would I get it if it wasn't displayed to the user.
+              const key =
+                e.target.dataset.key || e.target.firstChild.dataset.key;
+              // console.log(e);
+              history.push(`/set/${key}`);
+            },
+          },
+        },
+      }}
     >
       <TableBuilderColumn header="Title">
-        {(row) => <Link to={`/set/${row.Key}`}>{row.Title}</Link>}
+        {(row) => (
+          <StyledLink $as={Link} to={`/set/${row.Key}`} data-key={row.Key}>
+            {row.Title}
+          </StyledLink>
+        )}
       </TableBuilderColumn>
-      <TableBuilderColumn header="Key">{(row) => row.Key}</TableBuilderColumn>
+      <TableBuilderColumn header="Key">
+        {(row) => <span data-key={row.Key}>{row.Key}</span>}
+      </TableBuilderColumn>
       <TableBuilderColumn header="ID">
-        {(row) => row.ID.trim()}
+        {(row) => <span data-key={row.Key}>{row.ID.trim()}</span>}
       </TableBuilderColumn>
       <TableBuilderColumn header="Date">
         {(row) => {
@@ -49,7 +70,9 @@ const SetList: React.FC<SetListProps> = ({ schoolId }) => {
             parseInt(row.Month.trim()),
             parseInt(row.Day.trim())
           );
-          return format(setDate, "yyyy/MM/dd");
+          return (
+            <span data-key={row.Key}>{format(setDate, "yyyy/MM/dd")}</span>
+          );
         }}
       </TableBuilderColumn>
     </TableBuilder>
