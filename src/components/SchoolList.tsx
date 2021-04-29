@@ -22,7 +22,7 @@ type School = {
 
 const SchoolList: React.FC = () => {
   const params: any = useParams();
-  console.log(params);
+  // console.log(params);
   const [schoolListValue, setSchoolListValue] = useState<Value>([]);
   const { loading, error, data } = useQuery(SCHOOLS_QUERY);
   const history = useHistory();
@@ -42,10 +42,10 @@ const SchoolList: React.FC = () => {
         }
         value={schoolListValue}
         onChange={({ value }) => {
-          console.log(value);
+          // console.log(value);
           setSchoolListValue(value);
           history.push(`/school/${value[0].id}/`);
-          console.log(history);
+          // console.log(history);
         }}
         placeholder="Select Location"
         searchable
